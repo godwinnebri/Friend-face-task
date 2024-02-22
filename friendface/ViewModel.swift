@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import SwiftData
 import SwiftUI
 
 
 class ViewModel: ObservableObject {
-    @Published var profiles: [Model] = []
-    
+    @Published var users: [User] = []
+
     func fetch() {
         guard let url = URL(string:
                                 "https://www.hackingwithswift.com/samples/friendface.json") else {
@@ -26,9 +27,9 @@ class ViewModel: ObservableObject {
             
             //CONVERT TO JSON
             do {
-                let profiles = try JSONDecoder().decode([Model].self, from: data)
+                let users = try JSONDecoder().decode([User].self, from: data)
                 DispatchQueue.main.async {
-                    self?.profiles = profiles
+                    self?.users = users
                 }
             } catch {
                 print(error)
@@ -38,5 +39,6 @@ class ViewModel: ObservableObject {
         task.resume()
         
     }
+    
     
 }

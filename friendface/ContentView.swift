@@ -8,24 +8,25 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(\.modelContext) var modelContext
     @StateObject var viewModel = ViewModel()
     
     var body: some View {
         NavigationView {
-            List(viewModel.profiles, id: \.id) { profile in                //VStack(alignment: .leading, spacing: 16){
+            List($viewModel.users, id: \.id) { user in
                    // ForEach (viewModel.profiles, id: \.id) { profile in
                         
                         NavigationLink{
-                            DetailView(profile: profile)
+                            DetailView(user: user.wrappedValue)
                         } label: {
                             HStack(spacing: 18){
                                 Image(systemName: "person.crop.circle")
                                     .font(.title)
                                     .foregroundStyle(.gray)
                                 VStack(alignment: .leading){
-                                    Text(profile.name)
+                                    Text(user.name.wrappedValue)
                                         .font(.title2)
-                                    Text(profile.email)
+                                    Text(user.email.wrappedValue)
                                     
                                     
                                 }
